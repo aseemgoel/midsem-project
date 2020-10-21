@@ -6,6 +6,6 @@ WORKDIR /
 RUN npm --version
 RUN npm build
 
-EXPOSE 5000
+EXPOSE 3000
 CMD ["node", "app.js"]
 

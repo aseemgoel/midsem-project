@@ -1,7 +1,6 @@
-def awsCredentials = [[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'darsh_aws']]
 pipeline {
     environment{
-    registryCredential = 'dockerhub_id'
+    registryCredential = 'dockerhub_cred'
     }
     agent none
     stages {
@@ -17,24 +16,12 @@ pipeline {
         steps {
             script {
        docker.withRegistry( '', registryCredential ){
-            def customImage = docker.build("darshasawa7899/node-jenkins-docker:7")
+            def customImage = docker.build("aseemgoel/midsem_webapp:v1")
             customImage.push()
                     }    
                 }
             }
         }
-        stage('AWS Deployment'){
-            agent any
-            steps{
-                script{
-                    withCredentials(awsCredentials){
-                dir('TerraformScripts'){
-                sh 'terraform init'
-                sh 'terraform apply -auto-approve'
-                }
-              }
-            }
-          }
-        }
+        
     }
 }
