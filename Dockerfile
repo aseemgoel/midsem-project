@@ -1,7 +1,11 @@
 From node
 
-ADD main_modules /
+ADD . /
 WORKDIR /
 
-RUN npm install
+RUN npm --version
 RUN npm build
+
+EXPOSE 5000
+CMD ["node", "app.js"]
+
